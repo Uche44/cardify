@@ -6,7 +6,9 @@ const IdForm = () => {
     middleName: "",
     lastName: "",
     image: null,
+    dob: "",
     gender: "",
+    nin: "",
     address: "",
     country: "",
     state: "",
@@ -28,17 +30,30 @@ const IdForm = () => {
       newErrors.firstName = "First name is required.";
     if (!formData.lastName.trim())
       newErrors.lastName = "Last name is required.";
-    if (!formData.gender) newErrors.gender = "Gender is required.";
-    if (!formData.address.trim()) newErrors.address = "Address is required.";
-    if (!formData.country.trim()) newErrors.country = "Country is required.";
-    if (!formData.state.trim())
-      newErrors.state = "State of origin is required.";
-    if (!formData.image) newErrors.image = "Image is required.";
+    if (!formData.dob) {
+      newErrors.dob = "Date of birth is required.";
+    } else {
+      const today = new Date();
+      const dob = new Date(formData.dob);
+      if (dob > today) {
+        newErrors.dob = "Date of birth cannot be a future date.";
+      }
+      if (!formData.gender) newErrors.gender = "Gender is required.";
+      if (!formData.nin.trim()) {
+        newErrors.nin = "NIN is required.";
+      } else if (!/^\d{11}$/.test(formData.nin)) {
+        newErrors.nin = "NIN must be an 11-digit number.";
+      }
+      if (!formData.address.trim()) newErrors.address = "Address is required.";
+      if (!formData.country.trim()) newErrors.country = "Country is required.";
+      if (!formData.state.trim())
+        newErrors.state = "State of origin is required.";
+      if (!formData.image) newErrors.image = "Image is required.";
 
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+      setErrors(newErrors);
+      return Object.keys(newErrors).length === 0;
+    }
   };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validateForm()) {
@@ -108,6 +123,21 @@ const IdForm = () => {
           </div>
         </fieldset>
 
+        {/* Date of Birth */}
+        <div className="mb-6">
+          <label className="block text-gray-700 font-semibold mb-2">
+            Date of Birth
+          </label>
+          <input
+            type="date"
+            name="dob"
+            value={formData.dob}
+            onChange={handleChange}
+            className="w-full border border-gray-300 rounded-lg px-4 py-2"
+          />
+          {errors.dob && <p className="text-red-500 text-sm">{errors.dob}</p>}
+        </div>
+
         {/* Image */}
         <div className="mb-6">
           <label className="block text-gray-700 font-semibold mb-2">
@@ -143,6 +173,22 @@ const IdForm = () => {
           {errors.gender && (
             <p className="text-red-500 text-sm">{errors.gender}</p>
           )}
+        </div>
+
+        {/* NIN */}
+        <div className="mb-6">
+          <label className="block text-gray-700 font-semibold mb-2">
+            National Identification Number (NIN)
+          </label>
+          <input
+            type="text"
+            name="nin"
+            value={formData.nin}
+            onChange={handleChange}
+            className="w-full border border-gray-300 rounded-lg px-4 py-2"
+            placeholder="Enter your 11-digit NIN"
+          />
+          {errors.nin && <p className="text-red-500 text-sm">{errors.nin}</p>}
         </div>
 
         {/* Address */}
