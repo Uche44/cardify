@@ -30,7 +30,7 @@ const DriverForm = () => {
   const validateForm = () => {
     const newErrors = {};
 
-    // Driver's Info Validation
+   
     if (!formData.firstName.trim())
       newErrors.firstName = "First name is required.";
     if (!formData.lastName.trim())

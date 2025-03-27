@@ -2,6 +2,7 @@ import Header from "../components/Header";
 import Hero from "../components/Hero";
 import CardOptions from "../components/CardOptions";
 import Guide from "../components/Guide";
+import Footer from "../components/Footer";
 const HomePage = () => {
   return (
     <section className="w-full min-h-[100vh] bg-black text-white flex flex-col items-center">
@@ -14,7 +15,8 @@ const HomePage = () => {
       />
       {/* <div className="w-[85%] h-[14rem] md:w-[70%] md:h-[30rem] bg-img"></div> */}
       <CardOptions />
-      <Guide/>
+      <Guide />
+      <Footer />
     </section>
   );
 };

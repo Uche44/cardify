@@ -3,6 +3,7 @@ import HomePage from "./pages/HomePage";
 import IdForm from "./pages/IdForm";
 import BizForm from "./pages/BizForm";
 import DriverForm from "./pages/DrivLicenseForm";
+import { TemplateProvider } from "./contexts/TemplateSelectionContext";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -25,7 +26,9 @@ const router = createBrowserRouter([
 const App = () => {
   return (
     <>
-      <RouterProvider router={router} />
+      <TemplateProvider>
+        <RouterProvider router={router} />
+      </TemplateProvider>
     </>
   );
 };

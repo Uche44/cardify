@@ -1,6 +1,7 @@
 import { FaIdCard, FaShoppingBag, FaBus } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 const CardOptions = () => {
+  
   const navigate = useNavigate();
 
   return (

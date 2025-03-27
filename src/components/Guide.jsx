@@ -7,14 +7,14 @@ const Guide = () => {
       <h2 className="text-[1.5rem] font-bold mb-4">
         How to Create your own Card
       </h2>
-      <div className="guide w-full h-full px-4">
+      <div className="guide w-full h-full px-4 md:flex md:flex-col md:items-center">
         <div className="flex gap-4 mb-2">
           <FaCalendar className="text-xl text-green-800" />
 
           <p className="">Click on the card options button</p>
         </div>
         <div className="flex gap-4 mb-2">
-          <FaCalendar className="text-xl text-green-800" />
+        <FaCalendar className="text-xl text-green-800" />
 
           <p className="">Select the card design you like</p>
         </div>
