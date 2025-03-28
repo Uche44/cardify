@@ -1,15 +1,19 @@
 import { useState } from "react";
-import { useTemplateContext } from "../contexts/TemplateSelectionContext";
+// import { useTemplateContext } from "../contexts/TemplateSelectionContext";
 import BizTemplate from "../components/BizTemplate";
 
 const BizForm = () => {
-  const {
-    chooseTemplate,
-    setChooseTemplate,
-    selectedTemplate,
-    setSelectedTemplate,
-    handleTemplateSelect,
-  } = useTemplateContext();
+  // const {
+  //   chooseTemplate,
+  //   setChooseTemplate,
+  //   selectedTemplate,
+  //   setSelectedTemplate,
+  //   handleTemplateSelect,
+  // } = useTemplateContext();
+
+const [chooseTemplate, setChooseTemplate] = useState(true);
+  const [selectedTemplate, setSelectedTemplate] = useState(null);
+
 
   const [formData, setFormData] = useState({
     fullName: "",
@@ -23,6 +27,11 @@ const BizForm = () => {
     address: "",
     socialMedia: "",
   });
+
+  const handleTemplateSelect = (templateId) => {
+    setSelectedTemplate(templateId);
+    setChooseTemplate(false);
+  };
 
   const [errors, setErrors] = useState({});
 
@@ -67,7 +76,8 @@ const BizForm = () => {
   return (
     <>
       {chooseTemplate ? (
-        <BizTemplate formData={formData} />
+        <BizTemplate formData={formData} onTemplateSelect={handleTemplateSelect}
+          selectedTemplate={selectedTemplate}/>
       ) : (
         <section className="w-full min-h-[100vh] flex flex-col items-center bg-black px-4 py-8">
           <h2 className="text-green-800 font-bold text-[1.5rem] mb-6">

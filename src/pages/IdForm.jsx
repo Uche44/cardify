@@ -1,5 +1,5 @@
 import IdTemp from "../components/IdTemplate";
-
+import axios from "axios";
 import { useState } from "react";
 
 const IdForm = () => {
@@ -75,7 +75,7 @@ const IdForm = () => {
 
   //     // Send POST request
   //     const response = await axios.post(
-  //       "https://cardify-api.onrender.com/nin-info/",
+  //       "https://cardify-api-by76.onrender.com/nin-info/",
   //       formDataToSend,
   //       {
   //         headers: {
@@ -97,38 +97,79 @@ const IdForm = () => {
   //   }
   // };
 
-  const handleSubmit = async (e) => {
-    // console.log("clicked");
-    e.preventDefault();
+  // const handleSubmit = async (e) => {
+  //   // console.log("clicked");
+  //   e.preventDefault();
 
-    if (!validateForm()) return;
+  //   if (!validateForm()) return;
 
-    // Create a FormData object
-    const data = new FormData();
-    data.append("name", formData.fullName);
-    data.append("name", formData.image);
-    data.append("name", formData.dob);
-    data.append("gender", formData.gender);
-    data.append("nin", formData.nin);
-    data.append("address", formData.address);
-    data.append("country", formData.country);
-    data.append("state", formData.state);
+  //   // Create a FormData object
+  //   const data = new FormData();
+  //   data.append("name", formData.fullName);
+  //   data.append("name", formData.image);
+  //   data.append("name", formData.dob);
+  //   data.append("gender", formData.gender);
+  //   data.append("nin", formData.nin);
+  //   data.append("address", formData.address);
+  //   data.append("country", formData.country);
+  //   data.append("state", formData.state);
 
-    try {
-      const response = await fetch(
-        "https://cardify-api.onrender.com/nin-info/",
-        {
-          method: "POST",
-          body: data, // Send FormData (not JSON)
-        }
-      );
+  //   try {
+  //     const response = await fetch(
+  //       "https://cardify-api-by76.onrender.com/nin-info/",
+  //       {
+  //         method: "POST",
+  //         body: data, // Send FormData (not JSON)
+  //       }
+  //     );
 
-      const result = await response.json();
-      console.log("Success:", result);
-    } catch (error) {
-      console.error("Error:", error);
+  //     const result = await response.json();
+  //     console.log("Success:", result);
+  //   } catch (error) {
+  //     console.error("Error:", error);
+  //   }
+  // };
+
+const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  if (!validateForm()) return;
+
+  try {
+    // Convert formData to FormData object
+    const formDataToSend = new FormData();
+    Object.keys(formData).forEach((key) => {
+      formDataToSend.append(key, formData[key]);
+    });
+
+    // Log formData content to check its structure
+    formDataToSend.forEach((value, key) => {
+      console.log(key, value);
+    });
+
+    // Send POST request without setting Content-Type header manually
+    const response = await axios.post(
+      "https://cardify-api-by76.onrender.com/nin-info/",
+      formDataToSend
+    );
+
+    // Log the full response to inspect it
+    console.log("Response Status:", response.status);
+    console.log("Response Headers:", response.headers);
+    console.log("Response Data:", response.data);
+
+    alert("Form submitted successfully!");
+  } catch (error) {
+    if (error.response) {
+      console.log("Server Error:", error.response.data);
+    } else if (error.request) {
+      console.log("Network Error:", error.request);
+    } else {
+      console.log("Error:", error.message);
     }
-  };
+  }
+};
+
 
   return (
     <>
@@ -150,7 +191,7 @@ const IdForm = () => {
             {/* Full Name */}
             <fieldset className="mb-6">
               <legend className="text-lg font-semibold text-gray-700 mb-4">
-                Full Name
+                Details
               </legend>
               <div className="mb-4">
                 <label className="block text-gray-700 font-semibold mb-2">
@@ -158,45 +199,17 @@ const IdForm = () => {
                 </label>
                 <input
                   type="text"
-                  name="firstName"
-                  value={formData.firstName || ""}
+                  name="fullName"
+                  value={formData.fullName || ""}
                   onChange={handleChange}
                   className="w-full border border-gray-300 rounded-lg px-4 py-2"
-                  placeholder="Enter your first name"
+                  placeholder="Enter your full name"
                 />
                 {errors.fullName && (
                   <p className="text-red-500 text-sm">{errors.fullName}</p>
                 )}
               </div>
-              {/* <div className="mb-4">
-                <label className="block text-gray-700 font-semibold mb-2">
-                  Middle Name
-                </label>
-                <input
-                  type="text"
-                  name="middleName"
-                  value={formData.middleName}
-                  onChange={handleChange}
-                  className="w-full border border-gray-300 rounded-lg px-4 py-2"
-                  placeholder="Enter your middle name (optional)"
-                />
-              </div> */}
-              {/* <div className="mb-4">
-                <label className="block text-gray-700 font-semibold mb-2">
-                  Last Name
-                </label>
-                <input
-                  type="text"
-                  name="lastName"
-                  value={formData.lastName}
-                  onChange={handleChange}
-                  className="w-full border border-gray-300 rounded-lg px-4 py-2"
-                  placeholder="Enter your last name"
-                />
-                {errors.lastName && (
-                  <p className="text-red-500 text-sm">{errors.lastName}</p>
-                )}
-              </div> */}
+              
             </fieldset>
 
             {/* Date of Birth */}
