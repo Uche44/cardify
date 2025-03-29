@@ -3,7 +3,10 @@ import { FaCalendar } from "react-icons/fa";
 
 const Guide = () => {
   return (
-    <section className="w-full h-fit mt-8 flex flex-col items-center">
+    <section
+      id="guide"
+      className="w-full h-fit mt-8 flex flex-col items-center"
+    >
       <h2 className="text-[1.5rem] font-bold mb-4">
         How to Create your own Card
       </h2>
@@ -14,7 +17,7 @@ const Guide = () => {
           <p className="">Click on the card options button</p>
         </div>
         <div className="flex gap-4 mb-2">
-        <FaCalendar className="text-xl text-green-800" />
+          <FaCalendar className="text-xl text-green-800" />
 
           <p className="">Select the card design you like</p>
         </div>

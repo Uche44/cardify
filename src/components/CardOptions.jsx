@@ -1,11 +1,13 @@
 import { FaIdCard, FaShoppingBag, FaBus } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 const CardOptions = () => {
-  
   const navigate = useNavigate();
 
   return (
-    <section className="card-options w-full h-fit mt-6 px-4 py-2 md:flex md:gap-4 md:px-36 md:mt-14">
+    <section
+      id="create-card"
+      className="card-options w-full h-fit mt-6 px-4 py-2 md:flex md:gap-4 md:px-36 md:mt-14"
+    >
       <div className="py-4 px-6 border-[1px] border-gray-200 rounded-[1rem] md:px-8 md:p-10 md:hover:border-green-800">
         <div className="h-fit w-fit flex gap-2 md:mb-2">
           <FaIdCard className="text-4xl text-green-800" />
@@ -46,8 +48,10 @@ const CardOptions = () => {
           </h2>
         </div>
         <p>Apply for a state-issued drivers license for road accessibility.</p>
-        <button onClick={() => navigate("/driver-form")} 
-        className="px-4 py-2 mt-2 bg-green-800 cursor-pointer rounded-[5px]  md:px-6 md:mt-3 active:scale-95 active:bg-green-900">
+        <button
+          onClick={() => navigate("/driver-form")}
+          className="px-4 py-2 mt-2 bg-green-800 cursor-pointer rounded-[5px]  md:px-6 md:mt-3 active:scale-95 active:bg-green-900"
+        >
           Get Yours
         </button>
       </div>

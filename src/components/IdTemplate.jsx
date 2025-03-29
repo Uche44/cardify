@@ -56,7 +56,7 @@ const TempOne = ({ formData }) => {
 // second template
 const TempTwo = ({ formData }) => {
   return (
-    <div className="w-full h-fit bg-white mt-[19rem] rounded-[1rem] flex flex-col items-center py-8 relative overflow-hidden z-3">
+    <div className="w-full h-fit bg-white mt-[19rem] rounded-[1rem] flex flex-col items-center py-8 relative overflow-hidden md:mt-0 z-3">
       {/* decor div */}
       <div className="w-full h-30 absolute top-6 bg-blue-900 z-4"></div>
       <div className="w-[72%] h-fit py-4 pl-4 rounded-l-[7rem] self-end bg-blue-800 shadow-xl mt-4 z-5 ">
@@ -108,42 +108,36 @@ const TempTwo = ({ formData }) => {
 
 const IdTemp = ({ formData, onTemplateSelect, selectedTemplate }) => {
   return (
-    <div className="w-full min-h-[100vh] p-8 bg-black flex flex-col items-center">
-      <h2 className="text-[1.5rem] font-bold text-green-800 mb-6">
-        Choose a Template for your ID Card
-      </h2>
-      {/* Template One */}
-      <div
-        className={`w-full h-40 bg-white rounded-lg mb-4 cursor-pointer ${
-          selectedTemplate === "templateOne" ? "border-4 border-green-800" : ""
-        }`}
-        onClick={() => onTemplateSelect("templateOne")} // Select Template One
-      >
-        <TempOne formData={formData} />
-      </div>
+    <>
+      <div className="w-full min-h-[100vh] p-8 bg-black flex flex-col items-center md:grid md:grid-cols-2 md:gap-8 md:-mt-30">
+        <h2 className="text-[1.5rem] font-bold text-green-800 mb-6 md:fixed md:top-4 md:left-[38%]">
+          Choose a Template for your ID Card
+        </h2>
+        {/* Template One */}
+        <div
+          className={`w-full h-40 bg-white rounded-lg mb-4 cursor-pointer ${
+            selectedTemplate === "templateOne"
+              ? "border-4 border-green-800"
+              : ""
+          }`}
+          onClick={() => onTemplateSelect("templateOne")} // Select Template One
+        >
+          <TempOne formData={formData} />
+        </div>
 
-      {/* Template Two */}
-      <div
-        className={`w-full h-40 bg-white rounded-lg mb-4 cursor-pointer ${
-          selectedTemplate === "templateTwo" ? "border-4 border-green-800" : ""
-        }`}
-        onClick={() => onTemplateSelect("templateTwo")} // Select Template Two
-      >
-        <TempTwo formData={formData} />
+        {/* Template Two */}
+        <div
+          className={`w-full h-40 bg-white rounded-lg mb-4 cursor-pointer ${
+            selectedTemplate === "templateTwo"
+              ? "border-4 border-green-800"
+              : ""
+          }`}
+          onClick={() => onTemplateSelect("templateTwo")} // Select Template Two
+        >
+          <TempTwo formData={formData} />
+        </div>
       </div>
-
-      {/* Template Three */}
-      {/* <div
-        className={`w-full h-40 bg-white rounded-lg mb-4 cursor-pointer ${
-          selectedTemplate === "templateThree"
-            ? "border-4 border-green-800"
-            : ""
-        }`}
-        onClick={() => onTemplateSelect("templateThree")} // Select Template Three
-      >
-        <TemplateThree formData={formData} />
-      </div> */}
-    </div>
+    </>
   );
 };
 

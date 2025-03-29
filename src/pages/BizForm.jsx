@@ -1,6 +1,7 @@
 import { useState } from "react";
 // import { useTemplateContext } from "../contexts/TemplateSelectionContext";
 import BizTemplate from "../components/BizTemplate";
+import { useHandleSubmit } from "../hooks/useHandleSubmit";
 
 const BizForm = () => {
   // const {
@@ -11,9 +12,8 @@ const BizForm = () => {
   //   handleTemplateSelect,
   // } = useTemplateContext();
 
-const [chooseTemplate, setChooseTemplate] = useState(true);
+  const [chooseTemplate, setChooseTemplate] = useState(true);
   const [selectedTemplate, setSelectedTemplate] = useState(null);
-
 
   const [formData, setFormData] = useState({
     fullName: "",
@@ -65,19 +65,19 @@ const [chooseTemplate, setChooseTemplate] = useState(true);
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (validateForm()) {
-      console.log("Form submitted successfully:", formData);
-      alert("Form submitted successfully!");
-    }
+  const handleSubmit = async (e) => {
+    const url = "https://cardify-api-by76.onrender.com/business-info/";
+    await useHandleSubmit(e, url, formData, validateForm);
   };
 
   return (
     <>
       {chooseTemplate ? (
-        <BizTemplate formData={formData} onTemplateSelect={handleTemplateSelect}
-          selectedTemplate={selectedTemplate}/>
+        <BizTemplate
+          formData={formData}
+          onTemplateSelect={handleTemplateSelect}
+          selectedTemplate={selectedTemplate}
+        />
       ) : (
         <section className="w-full min-h-[100vh] flex flex-col items-center bg-black px-4 py-8">
           <h2 className="text-green-800 font-bold text-[1.5rem] mb-6">

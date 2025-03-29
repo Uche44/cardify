@@ -1,6 +1,7 @@
 import IdTemp from "../components/IdTemplate";
 import axios from "axios";
 import { useState } from "react";
+import { useHandleSubmit } from "../hooks/useHandleSubmit";
 
 const IdForm = () => {
   const [chooseTemplate, setChooseTemplate] = useState(true);
@@ -61,115 +62,13 @@ const IdForm = () => {
       return Object.keys(newErrors).length === 0;
     }
   };
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
+ 
 
-  //   if (!validateForm()) return;
 
-  //   try {
-  //     // Convert formData to FormData object
-  //     const formDataToSend = new FormData();
-  //     Object.keys(formData).forEach((key) => {
-  //       formDataToSend.append(key, formData[key]);
-  //     });
-
-  //     // Send POST request
-  //     const response = await axios.post(
-  //       "https://cardify-api-by76.onrender.com/nin-info/",
-  //       formDataToSend,
-  //       {
-  //         headers: {
-  //           "Content-Type": "multipart/form-data",
-  //         },
-  //       }
-  //     );
-
-  //     console.log("Response Data:", response.data);
-  //     alert("Form submitted successfully!");
-  //   } catch (error) {
-  //     if (error.response) {
-  //       console.log("Server Error:", error.response.data);
-  //     } else if (error.request) {
-  //       console.log("Network Error:", error.request);
-  //     } else {
-  //       console.log("Error:", error.message);
-  //     }
-  //   }
-  // };
-
-  // const handleSubmit = async (e) => {
-  //   // console.log("clicked");
-  //   e.preventDefault();
-
-  //   if (!validateForm()) return;
-
-  //   // Create a FormData object
-  //   const data = new FormData();
-  //   data.append("name", formData.fullName);
-  //   data.append("name", formData.image);
-  //   data.append("name", formData.dob);
-  //   data.append("gender", formData.gender);
-  //   data.append("nin", formData.nin);
-  //   data.append("address", formData.address);
-  //   data.append("country", formData.country);
-  //   data.append("state", formData.state);
-
-  //   try {
-  //     const response = await fetch(
-  //       "https://cardify-api-by76.onrender.com/nin-info/",
-  //       {
-  //         method: "POST",
-  //         body: data, // Send FormData (not JSON)
-  //       }
-  //     );
-
-  //     const result = await response.json();
-  //     console.log("Success:", result);
-  //   } catch (error) {
-  //     console.error("Error:", error);
-  //   }
-  // };
-
-const handleSubmit = async (e) => {
-  e.preventDefault();
-
-  if (!validateForm()) return;
-
-  try {
-    // Convert formData to FormData object
-    const formDataToSend = new FormData();
-    Object.keys(formData).forEach((key) => {
-      formDataToSend.append(key, formData[key]);
-    });
-
-    // Log formData content to check its structure
-    formDataToSend.forEach((value, key) => {
-      console.log(key, value);
-    });
-
-    // Send POST request without setting Content-Type header manually
-    const response = await axios.post(
-      "https://cardify-api-by76.onrender.com/nin-info/",
-      formDataToSend
-    );
-
-    // Log the full response to inspect it
-    console.log("Response Status:", response.status);
-    console.log("Response Headers:", response.headers);
-    console.log("Response Data:", response.data);
-
-    alert("Form submitted successfully!");
-  } catch (error) {
-    if (error.response) {
-      console.log("Server Error:", error.response.data);
-    } else if (error.request) {
-      console.log("Network Error:", error.request);
-    } else {
-      console.log("Error:", error.message);
-    }
-  }
-};
-
+  const handleSubmit = async (e) => {
+    const url = "https://cardify-api-by76.onrender.com/nin-info/";
+    await useHandleSubmit(e, url, formData, validateForm);
+  };
 
   return (
     <>
@@ -209,7 +108,6 @@ const handleSubmit = async (e) => {
                   <p className="text-red-500 text-sm">{errors.fullName}</p>
                 )}
               </div>
-              
             </fieldset>
 
             {/* Date of Birth */}

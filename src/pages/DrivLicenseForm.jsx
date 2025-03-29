@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useHandleSubmit } from "../hooks/useHandleSubmit";
 
 const DriverForm = () => {
   const [formData, setFormData] = useState({
@@ -76,13 +77,10 @@ const DriverForm = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (validateForm()) {
-      console.log("Form submitted successfully:", formData);
-      alert("Form submitted successfully!");
-    }
-  };
+   const handleSubmit = async (e) => {
+     const url = "https://cardify-api-by76.onrender.com/license-info/";
+     await useHandleSubmit(e, url, formData, validateForm);
+   };
 
   return (
     <section className="w-full min-h-[100vh] flex flex-col items-center px-4 py-8 bg-black">

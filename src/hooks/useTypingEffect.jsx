@@ -1,32 +1,3 @@
-// import { useState, useEffect } from "react";
-
-// export const useTypingEffect = (texts, speed = 100, delay = 2000) => {
-//   const [text, setText] = useState("");
-//   const [index, setIndex] = useState(0);
-//   const [charIndex, setCharIndex] = useState(0);
-//   const [deleting, setDeleting] = useState(false);
-
-//   useEffect(() => {
-//     const currentText = texts[index];
-
-//     if (deleting) {
-//       if (charIndex > 0) {
-//         setTimeout(() => setCharIndex(charIndex - 1), speed / 2);
-//       } else {
-//         setDeleting(false);
-//         setIndex((prev) => (prev + 1) % texts.length);
-//       }
-//     } else {
-//       if (charIndex < currentText.length) {
-//         setTimeout(() => setCharIndex(charIndex + 1), speed);
-//       } else {
-//         setTimeout(() => setDeleting(true), delay);
-//       }
-//     }
-//   }, [charIndex, deleting, index, texts, speed, delay]);
-
-//   return text.slice(0, charIndex);
-// };
 
 import { useState, useEffect } from "react";
 
