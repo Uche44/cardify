@@ -2,15 +2,11 @@ import { useState } from "react";
 // import { useTemplateContext } from "../contexts/TemplateSelectionContext";
 import BizTemplate from "../components/BizTemplate";
 import { useHandleSubmit } from "../hooks/useHandleSubmit";
+import { useFetchData } from "../hooks/useFetchData";
 
 const BizForm = () => {
-  // const {
-  //   chooseTemplate,
-  //   setChooseTemplate,
-  //   selectedTemplate,
-  //   setSelectedTemplate,
-  //   handleTemplateSelect,
-  // } = useTemplateContext();
+  const { fetchSubmittedData } = useFetchData();
+  const handleSubmitHook = useHandleSubmit();
 
   const [chooseTemplate, setChooseTemplate] = useState(true);
   const [selectedTemplate, setSelectedTemplate] = useState(null);
@@ -67,7 +63,7 @@ const BizForm = () => {
 
   const handleSubmit = async (e) => {
     const url = "https://cardify-api-by76.onrender.com/business-info/";
-    await useHandleSubmit(e, url, formData, validateForm);
+    await handleSubmitHook(e, url, formData, validateForm, fetchSubmittedData);
   };
 
   return (

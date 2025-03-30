@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { useHandleSubmit } from "../hooks/useHandleSubmit";
+import { useFetchData } from "../hooks/useFetchData";
 
 const DriverForm = () => {
+  const { fetchSubmittedData } = useFetchData();
+  const handleSubmitHook = useHandleSubmit();
+
   const [formData, setFormData] = useState({
-    firstName: "",
-    middleName: "",
-    lastName: "",
+    fullName: "",
     dob: "",
     placeOfBirth: "",
     image: null,
@@ -31,11 +33,9 @@ const DriverForm = () => {
   const validateForm = () => {
     const newErrors = {};
 
-   
-    if (!formData.firstName.trim())
-      newErrors.firstName = "First name is required.";
-    if (!formData.lastName.trim())
-      newErrors.lastName = "Last name is required.";
+    if (!formData.fullName.trim())
+      newErrors.fullName = "First name is required.";
+
     if (!formData.dob) {
       newErrors.dob = "Date of birth is required.";
     } else {
@@ -77,10 +77,10 @@ const DriverForm = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-   const handleSubmit = async (e) => {
-     const url = "https://cardify-api-by76.onrender.com/license-info/";
-     await useHandleSubmit(e, url, formData, validateForm);
-   };
+  const handleSubmit = async (e) => {
+    const url = "https://cardify-api-by76.onrender.com/license-info/";
+    await handleSubmitHook(e, url, formData, validateForm, fetchSubmittedData);
+  };
 
   return (
     <section className="w-full min-h-[100vh] flex flex-col items-center px-4 py-8 bg-black">
@@ -98,49 +98,21 @@ const DriverForm = () => {
           </legend>
           <div className="mb-4">
             <label className="block text-gray-700 font-semibold mb-2">
-              First Name
+              Full Name
             </label>
             <input
               type="text"
-              name="firstName"
-              value={formData.firstName}
+              name="fullName"
+              value={formData.fullName}
               onChange={handleChange}
               className="w-full border border-gray-300 rounded-lg px-4 py-2"
-              placeholder="Enter your first name"
+              placeholder="Enter your full name"
             />
-            {errors.firstName && (
-              <p className="text-red-500 text-sm">{errors.firstName}</p>
+            {errors.fullName && (
+              <p className="text-red-500 text-sm">{errors.fullName}</p>
             )}
           </div>
-          <div className="mb-4">
-            <label className="block text-gray-700 font-semibold mb-2">
-              Middle Name
-            </label>
-            <input
-              type="text"
-              name="middleName"
-              value={formData.middleName}
-              onChange={handleChange}
-              className="w-full border border-gray-300 rounded-lg px-4 py-2"
-              placeholder="Enter your middle name (optional)"
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block text-gray-700 font-semibold mb-2">
-              Last Name
-            </label>
-            <input
-              type="text"
-              name="lastName"
-              value={formData.lastName}
-              onChange={handleChange}
-              className="w-full border border-gray-300 rounded-lg px-4 py-2"
-              placeholder="Enter your last name"
-            />
-            {errors.lastName && (
-              <p className="text-red-500 text-sm">{errors.lastName}</p>
-            )}
-          </div>
+
           <div className="mb-4">
             <label className="block text-gray-700 font-semibold mb-2">
               Date of Birth
