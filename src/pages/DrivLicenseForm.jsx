@@ -1,10 +1,9 @@
 import { useState } from "react";
-import { useHandleSubmit } from "../hooks/useHandleSubmit";
+import { handleSubmit as submitForm } from "../lib/handleSubmit";
 import { useFetchData } from "../hooks/useFetchData";
 
 const DriverForm = () => {
   const { fetchSubmittedData } = useFetchData();
-  const handleSubmitHook = useHandleSubmit();
 
   const [formData, setFormData] = useState({
     fullName: "",
@@ -79,7 +78,7 @@ const DriverForm = () => {
 
   const handleSubmit = async (e) => {
     const url = "https://cardify-api-by76.onrender.com/license-info/";
-    await handleSubmitHook(e, url, formData, validateForm, fetchSubmittedData);
+    await submitForm(e, url, formData, validateForm, fetchSubmittedData);
   };
 
   return (

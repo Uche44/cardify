@@ -26,4 +26,3 @@ export const useFetchData = (url) => {
   return { formData, loading, error, fetchSubmittedData  };
 };
 
-

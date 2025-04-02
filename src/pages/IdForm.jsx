@@ -1,14 +1,12 @@
 import IdTemp from "../components/IdTemplate";
 // import axios from "axios";
-import { use, useState } from "react";
-import { useHandleSubmit } from "../hooks/useHandleSubmit";
+import { useState } from "react";
+import { handleSubmit as submitForm } from "../lib/handleSubmit";
 import { useFetchData } from "../hooks/useFetchData";
 
 const IdForm = () => {
   const { fetchSubmittedData } = useFetchData();
-  const handleSubmitHook = useHandleSubmit();
-  console.log(typeof handleSubmitHook);
-  console.log(useHandleSubmit);
+
   const [chooseTemplate, setChooseTemplate] = useState(true);
   const [selectedTemplate, setSelectedTemplate] = useState(null);
   const [formData, setFormData] = useState({
@@ -71,7 +69,7 @@ const IdForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const url = "https://cardify-api-by76.onrender.com/nin-info/";
-    await handleSubmitHook(e, url, formData, validateForm, fetchSubmittedData);
+    await submitForm(e, url, formData, validateForm, fetchSubmittedData);
   };
 
   return (
