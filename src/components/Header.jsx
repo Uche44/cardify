@@ -122,6 +122,7 @@ const Header = () => {
             key={index}
             href={link.href}
             className="mb-4"
+            onClick={() => setOpenNav(false)}
           >
             {link.name}
           </a>
@@ -129,6 +130,7 @@ const Header = () => {
         <a
           href="#create-card"
           className=""
+          onClick={() => setOpenNav(!openNav)}
         >
           Create Card
         </a>

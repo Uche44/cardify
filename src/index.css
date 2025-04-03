@@ -46,3 +46,32 @@ body{
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
   filter: brightness(120%);
 }
+/* Initial state - hidden */
+.fade-in {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+/* Visible state when scrolled into view */
+.fade-in.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* cp */
+@keyframes floatIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.float-in {
+  animation: floatIn 0.8s ease-out forwards;
+  opacity: 0; /* Start hidden */
+}

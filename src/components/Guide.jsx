@@ -7,7 +7,7 @@ const Guide = () => {
       id="guide"
       className="w-full h-fit mt-8 flex flex-col items-center"
     >
-      <h2 className="text-[1.5rem] font-bold mb-4">
+      <h2 className="text-[1.5rem] font-bold mb-4 md:text-4xl text-green-800">
         How to Create your own Card
       </h2>
       <div className="guide w-full h-full px-4 md:flex md:flex-col md:items-center">
