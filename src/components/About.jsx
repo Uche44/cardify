@@ -18,7 +18,7 @@ const About = () => {
         and stylish. Choose from a variety of templates, customize your details,
         and generate high-quality cards in seconds. Whether for work, events, or
         personal branding, Cardify helps you stand out effortlessly. Design,
-        preview, and download your perfect card today!{" "}
+        preview, and download your perfect card today!
       </p>
     </section>
   );

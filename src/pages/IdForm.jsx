@@ -1,14 +1,14 @@
 import IdTemp from "../components/IdTemplate";
-// import axios from "axios";
+import axios from "axios";
 import { useState } from "react";
 import { handleSubmit as submitForm } from "../lib/handleSubmit";
-import { useFetchData } from "../hooks/useFetchData";
+import { FaSpinner } from "react-icons/fa";
 
 const IdForm = () => {
-  const { fetchSubmittedData } = useFetchData();
-
   const [chooseTemplate, setChooseTemplate] = useState(true);
   const [selectedTemplate, setSelectedTemplate] = useState(null);
+  const [submittedData, setSubmittedData] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
     fullName: "",
     image: null,
@@ -66,14 +66,38 @@ const IdForm = () => {
     }
   };
 
+  const fetchSubmittedData = async () => {
+     setIsLoading(true);
+    try {
+      const response = await axios.get(
+        "https://cardify-api-by76.onrender.com/nin-info/"
+      );
+      console.log("Fetched Data:", response.data);
+      setSubmittedData(response.data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
   const handleSubmit = async (e) => {
+    setIsLoading(true);
     e.preventDefault();
     const url = "https://cardify-api-by76.onrender.com/nin-info/";
     await submitForm(e, url, formData, validateForm, fetchSubmittedData);
+    // setChooseTemplate(true);
   };
 
   return (
     <>
+      {isLoading && (
+        <div className="bg-black w-full h-screen flex flex-col items-center justify-center">
+          <FaSpinner className="text-green-800 animate-spin text-[5rem]" />
+
+          <p className="text-white animate-pulse text-[1.2rem] mt-2">
+            Creating card...
+          </p>
+        </div>
+      )}
       {chooseTemplate ? (
         <IdTemp
           formData={formData}

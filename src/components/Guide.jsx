@@ -1,11 +1,12 @@
 // import { FaNoteSticky } from "react-icons/fa6";
 import { FaCalendar } from "react-icons/fa";
-
+import useScrollAnimation from "../hooks/useScrollAnimation";
 const Guide = () => {
+  useScrollAnimation();
   return (
     <section
       id="guide"
-      className="w-full h-fit mt-8 flex flex-col items-center"
+      className="scroll-element w-full h-fit mt-8 flex flex-col items-center"
     >
       <h2 className="text-[1.5rem] font-bold mb-4 md:text-4xl text-green-800">
         How to Create your own Card

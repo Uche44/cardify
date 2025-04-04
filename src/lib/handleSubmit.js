@@ -1,5 +1,6 @@
 import axios from "axios";
 
+
 export const handleSubmit = async (
   e,
   url,
@@ -35,7 +36,7 @@ export const handleSubmit = async (
     console.log("Response Headers:", response.headers);
     console.log("Response Data:", response.data);
 
-    alert("Form submitted successfully!");
+    // alert("Form submitted successfully!");
 
     if (typeof fetchSubmittedData === "function") {
       fetchSubmittedData();

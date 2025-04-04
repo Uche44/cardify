@@ -1,6 +1,8 @@
 import { useTypingEffect } from "../hooks/useTypingEffect";
-
+import useScrollAnimation from "../hooks/useScrollAnimation";
 const Hero = () => {
+  useScrollAnimation();
+
   const text = useTypingEffect([
     "Id Cards",
     "Business Cards",
@@ -8,8 +10,7 @@ const Hero = () => {
   ]);
 
   return (
-    
-    <section className="h-[90vh] flex flex-col items-center relative">
+    <section className="scroll-element h-[90vh] flex flex-col items-center relative">
       <h1 className="text-[2.5rem] text-white font-bold mt-[50%] text-center md:mt-[10rem] md:text-[4rem]">
         Create Your Perfect <br />{" "}
         <span className="text-center text-green-800">{text}</span>
@@ -24,7 +25,6 @@ const Hero = () => {
         </button>
       </div>
     </section>
-    
   );
 };
 

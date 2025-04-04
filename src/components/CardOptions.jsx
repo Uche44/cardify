@@ -12,7 +12,7 @@ const CardOptions = () => {
       </h2>
       <section
         id="create-card"
-        className="scroll-element border-2 card-options w-full h-fit mt-6 px-4 py-2 md:flex md:gap-4 md:px-36 md:mt-14"
+        className="scroll-element card-options w-full h-fit mt-6 px-4 py-2 md:flex md:gap-4 md:px-36 md:mt-14"
       >
         <div className="py-4 px-6 border-[1px] border-gray-200 rounded-[1rem] md:px-8 md:p-10 md:hover:border-green-800">
           <div className="h-fit w-fit flex gap-2 md:mb-2">

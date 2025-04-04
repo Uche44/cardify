@@ -1,8 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Winky+Sans:ital,wght@0,300..900;1,300..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Winky+Sans:ital,wght@0,300..900;1,300..900&display=swap");
 @import "tailwindcss";
 
-
-body{
+body {
   font-family: "Winky Sans", sans-serif;
 }
 .mobile {
@@ -46,24 +45,12 @@ body{
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
   filter: brightness(120%);
 }
-/* Initial state - hidden */
-.fade-in {
-  opacity: 0;
-  transform: translateY(50px);
-  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-}
 
-/* Visible state when scrolled into view */
-.fade-in.show {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* cp */
+/* scroll animation*/
 @keyframes floatIn {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(70px);
   }
   to {
     opacity: 1;
