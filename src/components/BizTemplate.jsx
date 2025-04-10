@@ -2,7 +2,16 @@ import { useTemplateContext } from "../contexts/TemplateSelectionContext";
 
 import { useState } from "react";
 
-const TempOne = ({ formData, showRear, setShowRear }) => {
+export const TempOne = ({ formData, showRear, setShowRear }) => {
+
+ const profilePicUrl = formData.profilePicture
+   ? URL.createObjectURL(formData.profilePicture)
+   : null;
+
+const logo = formData.companyLogo
+  ? URL.createObjectURL(formData.companyLogo)
+  : null;
+
   return (
     <div
       className={`w-full h-[14rem] px-4 bg-gradient-to-br from-orange-800 via-orange-600 to-orange-300 rounded-[1rem] flex items-center py-8 relative overflow-hidden z-3 transform transition-transform duration-500 `}
@@ -13,7 +22,7 @@ const TempOne = ({ formData, showRear, setShowRear }) => {
           <div className="h-full -z-1 absolute bg-gray-800 w-25 ml-8"></div>
           <img
             className="border-black border-2 w-32 h-32 rounded-full ml-4 mr-8"
-            src={formData.companyLogo || "https://via.placeholder.com/150"}
+            src={logo || "https://via.placeholder.com/150"}
             alt="User Profile"
           />
 
@@ -31,7 +40,7 @@ const TempOne = ({ formData, showRear, setShowRear }) => {
         <>
           <div className="w-48 mt-4 flex flex-col gap-4">
             <img
-              src={formData.profilePicture}
+              src={profilePicUrl}
               alt=""
               className="border-2 w-20 h-20 rounded-full"
             />
@@ -74,7 +83,12 @@ const TempOne = ({ formData, showRear, setShowRear }) => {
   );
 };
 
-const TempTwo = ({ formData, showRear, setShowRear }) => {
+export const TempTwo = ({ formData, showRear, setShowRear }) => {
+
+ const profilePicUrl = formData.profilePicture
+   ? URL.createObjectURL(formData.profilePicture)
+   : null;
+
   return (
     <div
       className={`w-full h-[14rem] mt-32 px-4 bg-gradient-to-bl from-green-800 via-green-600 rounded-[1rem] flex items-center py-8 relative overflow-hidden z-3 transform transition-transform duration-500 md:mt-0 `}
@@ -103,7 +117,7 @@ const TempTwo = ({ formData, showRear, setShowRear }) => {
         <>
           <div className="w-48 mt-4 flex flex-col gap-4">
             <img
-              src={formData.profilePicture}
+              src={profilePicUrl}
               alt=""
               className="border-2 w-20 h-20 rounded-full"
             />
@@ -146,11 +160,11 @@ const TempTwo = ({ formData, showRear, setShowRear }) => {
   );
 };
 
-const BizTemplate = ({ formData }) => {
+const BizTemplate = () => {
   const [showRearOne, setShowRearOne] = useState(false);
   const [showRearTwo, setShowRearTwo] = useState(false);
 
-  const { selectedTemplate, handleTemplateSelect } = useTemplateContext();
+  const { selectedTemplate, handleTemplateSelect, formData } = useTemplateContext();
 
   return (
     <section className="w-full min-h-[100vh] py-8 px-2 bg-black flex flex-col items-center md:grid md:grid-cols-3 md:gap-4">

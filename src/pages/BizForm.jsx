@@ -1,15 +1,14 @@
 import { useState } from "react";
 import BizTemplate from "../components/BizTemplate";
 import { useTemplateContext } from "../contexts/TemplateSelectionContext";
+import { useNavigate } from "react-router-dom";
 
 const BizForm = () => {
-  const {
-    chooseTemplate,
-    // selectedTemplate,
-  } = useTemplateContext();
+  const navigate = useNavigate();
+  const { chooseTemplate, setFormData } = useTemplateContext();
   const [isLoading, setIsLoading] = useState(false);
 
-  const [formData, setFormData] = useState({
+  const [formData, localSetFormData] = useState({
     fullName: "",
     jobTitle: "",
     profilePicture: null,
@@ -26,7 +25,7 @@ const BizForm = () => {
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
-    setFormData({
+    localSetFormData({
       ...formData,
       [name]: files ? files[0] : value,
     });
@@ -58,6 +57,9 @@ const BizForm = () => {
     e.preventDefault();
     setIsLoading(true);
     if (!validateForm) return;
+    setFormData(formData);
+    navigate("/biz-card");
+    
   };
 
   return (

@@ -73,7 +73,7 @@ const IdForm = () => {
     if (!validateForm) return;
     setFormData(formData);
     navigate("/id-card");
-    return formData;
+  
   };
 
   return (
