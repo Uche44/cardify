@@ -11,26 +11,26 @@ const Guide = () => {
       <h2 className="text-[1.5rem] font-bold mb-4 md:text-4xl text-green-800">
         How to Create your own Card
       </h2>
-      <div className="guide w-full h-full px-4 md:flex md:flex-col md:items-center">
+      <div className="guide w-fit h-full px-4 md:flex md:flex-col md:items-start gap-4">
         <div className="flex gap-4 mb-2">
           <FaCalendar className="text-xl text-green-800" />
 
-          <p className="">Click on the card options button</p>
+          <p className="md:text-[1.2rem]">Click on the card options button</p>
         </div>
         <div className="flex gap-4 mb-2">
           <FaCalendar className="text-xl text-green-800" />
 
-          <p className="">Select the card design you like</p>
+          <p className="md:text-[1.2rem]">Select the card design you like</p>
         </div>
         <div className="flex gap-4 mb-2">
           <FaCalendar className="text-xl text-green-800" />
 
-          <p className="">Fill in the form with your details</p>
+          <p className="md:text-[1.2rem]">Fill in the form with your details</p>
         </div>
         <div className="flex gap-4 mb-2">
           <FaCalendar className="text-xl text-green-800" />
 
-          <p className="">Click on the create card button</p>
+          <p className="md:text-[1.2rem]">Click on the create card button</p>
         </div>
       </div>
     </section>

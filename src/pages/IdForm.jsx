@@ -1,36 +1,36 @@
 import IdTemp from "../components/IdTemplate";
-import axios from "axios";
 import { useState } from "react";
-import { handleSubmit as submitForm } from "../lib/handleSubmit";
+import { useNavigate } from "react-router-dom";
 import { FaSpinner } from "react-icons/fa";
 
+import { useTemplateContext } from "../contexts/TemplateSelectionContext";
+
 const IdForm = () => {
-  const [chooseTemplate, setChooseTemplate] = useState(true);
-  const [selectedTemplate, setSelectedTemplate] = useState(null);
-  const [submittedData, setSubmittedData] = useState(null);
+  const navigate = useNavigate();
+
+  const {
+    chooseTemplate,
+    setFormData,
+    // selectedTemplate,
+  } = useTemplateContext();
+
   const [isLoading, setIsLoading] = useState(false);
-  const [formData, setFormData] = useState({
-    fullName: "",
-    image: null,
-    dob: "",
+
+  const [formData, localSetFormData] = useState({
+    full_name: "",
+    profile_pic: null,
+    dateofbirth: "",
     gender: "",
-    nin: "",
     address: "",
     country: "",
-    state: "",
+    state_of_origin: "",
   });
-
-  // choose template
-  const handleTemplateSelect = (templateId) => {
-    setSelectedTemplate(templateId);
-    setChooseTemplate(false);
-  };
 
   const [errors, setErrors] = useState({});
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
-    setFormData({
+    localSetFormData({
       ...formData,
       [name]: files ? files[0] : value,
     });
@@ -38,53 +38,42 @@ const IdForm = () => {
 
   const validateForm = () => {
     const newErrors = {};
-    if (!formData.fullName.trim())
-      newErrors.fullName = "Full name is required.";
+    if (!formData.full_name.trim())
+      newErrors.full_name = "Full name is required.";
 
-    if (!formData.dob) {
-      newErrors.dob = "Date of birth is required.";
+    if (!formData.dateofbirth) {
+      newErrors.dateofbirth = "Date of birth is required.";
     } else {
       const today = new Date();
-      const dob = new Date(formData.dob);
-      if (dob > today) {
-        newErrors.dob = "Date of birth cannot be a future date.";
+      const dateofbirth = new Date(formData.dateofbirth);
+      if (dateofbirth > today) {
+        newErrors.dateofbirth = "Date of birth cannot be a future date.";
       }
       if (!formData.gender) newErrors.gender = "Gender is required.";
-      if (!formData.nin.trim()) {
-        newErrors.nin = "NIN is required.";
-      } else if (!/^\d{11}$/.test(formData.nin)) {
-        newErrors.nin = "NIN must be an 11-digit number.";
-      }
+      // if (!formData.nin.trim()) {
+      //   newErrors.nin = "NIN is required.";
+      // } else if (!/^\d{11}$/.test(formData.nin)) {
+      //   newErrors.nin = "NIN must be an 11-digit number.";
+      // }
       if (!formData.address.trim()) newErrors.address = "Address is required.";
       if (!formData.country.trim()) newErrors.country = "Country is required.";
-      if (!formData.state.trim())
-        newErrors.state = "State of origin is required.";
-      if (!formData.image) newErrors.image = "Image is required.";
+      if (!formData.state_of_origin.trim())
+        newErrors.state_of_origin = "State of origin is required.";
+      if (!formData.profile_pic)
+        newErrors.profile_pic = "profile_pic is required.";
 
       setErrors(newErrors);
       return Object.keys(newErrors).length === 0;
     }
   };
 
-  const fetchSubmittedData = async () => {
-     setIsLoading(true);
-    try {
-      const response = await axios.get(
-        "https://cardify-api-by76.onrender.com/nin-info/"
-      );
-      console.log("Fetched Data:", response.data);
-      setSubmittedData(response.data);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
-
   const handleSubmit = async (e) => {
-    setIsLoading(true);
     e.preventDefault();
-    const url = "https://cardify-api-by76.onrender.com/nin-info/";
-    await submitForm(e, url, formData, validateForm, fetchSubmittedData);
-    // setChooseTemplate(true);
+    setIsLoading(true);
+    if (!validateForm) return;
+    setFormData(formData);
+    navigate("/id-card");
+    return formData;
   };
 
   return (
@@ -99,11 +88,7 @@ const IdForm = () => {
         </div>
       )}
       {chooseTemplate ? (
-        <IdTemp
-          formData={formData}
-          onTemplateSelect={handleTemplateSelect}
-          selectedTemplate={selectedTemplate}
-        />
+        <IdTemp formData={formData} />
       ) : (
         <section className="w-full min-h-[100vh] flex flex-col items-center px-4 py-8 bg-black">
           <h2 className="text-[1.5rem] font-bold text-green-800 mb-6">
@@ -111,8 +96,6 @@ const IdForm = () => {
           </h2>
           <form
             onSubmit={handleSubmit}
-            method="POST"
-            encType="multipart/form-data"
             className="w-full max-w-[600px] bg-white p-6 rounded-lg shadow-md"
           >
             {/* Full Name */}
@@ -126,14 +109,14 @@ const IdForm = () => {
                 </label>
                 <input
                   type="text"
-                  name="fullName"
-                  value={formData.fullName || ""}
+                  name="full_name"
+                  value={formData.full_name || ""}
                   onChange={handleChange}
                   className="w-full border border-gray-300 rounded-lg px-4 py-2"
                   placeholder="Enter your full name"
                 />
-                {errors.fullName && (
-                  <p className="text-red-500 text-sm">{errors.fullName}</p>
+                {errors.full_name && (
+                  <p className="text-red-500 text-sm">{errors.full_name}</p>
                 )}
               </div>
             </fieldset>
@@ -145,29 +128,29 @@ const IdForm = () => {
               </label>
               <input
                 type="date"
-                name="dob"
-                value={formData.dob || ""}
+                name="dateofbirth"
+                value={formData.dateofbirth || ""}
                 onChange={handleChange}
                 className="w-full border border-gray-300 rounded-lg px-4 py-2"
               />
-              {errors.dob && (
-                <p className="text-red-500 text-sm">{errors.dob}</p>
+              {errors.dateofbirth && (
+                <p className="text-red-500 text-sm">{errors.dateofbirth}</p>
               )}
             </div>
 
-            {/* Image */}
+            {/* profile_pic */}
             <div className="mb-6">
               <label className="block text-gray-700 font-semibold mb-2">
                 Upload Image
               </label>
               <input
                 type="file"
-                name="image"
+                name="profile_pic"
                 onChange={handleChange}
                 className="w-full border border-gray-300 rounded-lg px-4 py-2"
               />
-              {errors.image && (
-                <p className="text-red-500 text-sm">{errors.image}</p>
+              {errors.profile_pic && (
+                <p className="text-red-500 text-sm">{errors.profile_pic}</p>
               )}
             </div>
 
@@ -183,30 +166,12 @@ const IdForm = () => {
                 className="w-full border border-gray-300 rounded-lg px-4 py-2"
               >
                 <option value="">Select your gender</option>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
+                <option value="M">Male</option>
+                <option value="F">Female</option>
                 <option value="other">Other</option>
               </select>
               {errors.gender && (
                 <p className="text-red-500 text-sm">{errors.gender}</p>
-              )}
-            </div>
-
-            {/* NIN */}
-            <div className="mb-6">
-              <label className="block text-gray-700 font-semibold mb-2">
-                National Identification Number (NIN)
-              </label>
-              <input
-                type="text"
-                name="nin"
-                value={formData.nin || ""}
-                onChange={handleChange}
-                className="w-full border border-gray-300 rounded-lg px-4 py-2"
-                placeholder="Enter your 11-digit NIN"
-              />
-              {errors.nin && (
-                <p className="text-red-500 text-sm">{errors.nin}</p>
               )}
             </div>
 
@@ -245,22 +210,22 @@ const IdForm = () => {
               )}
             </div>
 
-            {/* State of Origin */}
+            {/* state_of_origin of Origin */}
             <div className="mb-6">
               <label className="block text-gray-700 font-semibold mb-2">
                 State of Origin
               </label>
               <input
                 type="text"
-                // accepts="image/*"
-                name="state"
-                value={formData.state || ""}
+                // accepts="profile_pic/*"
+                name="state_of_origin"
+                value={formData.state_of_origin || ""}
                 onChange={handleChange}
                 className="w-full border border-gray-300 rounded-lg px-4 py-2"
                 placeholder="Enter your state of origin"
               />
-              {errors.state && (
-                <p className="text-red-500 text-sm">{errors.state}</p>
+              {errors.state_of_origin && (
+                <p className="text-red-500 text-sm">{errors.state_of_origin}</p>
               )}
             </div>
 
@@ -269,7 +234,7 @@ const IdForm = () => {
               type="submit"
               className="w-full bg-green-800 text-white font-semibold py-2 rounded-lg hover:bg-green-900 transition cursor-pointer"
             >
-              Submit
+              Create Card
             </button>
           </form>
         </section>

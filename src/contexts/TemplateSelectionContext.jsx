@@ -1,12 +1,14 @@
 import { createContext, useState, useContext } from "react";
 
-// Create the context
+// the context
 const TemplateContext = createContext();
 
-// Create the provider component
+// the provider component
 export const TemplateProvider = ({ children }) => {
   const [chooseTemplate, setChooseTemplate] = useState(true);
   const [selectedTemplate, setSelectedTemplate] = useState(null);
+const [formData, setFormData] = useState({})
+
 
   const handleTemplateSelect = (templateId) => {
     setSelectedTemplate(templateId);
@@ -16,6 +18,8 @@ export const TemplateProvider = ({ children }) => {
   return (
     <TemplateContext.Provider
       value={{
+        formData,
+        setFormData,
         chooseTemplate,
         setChooseTemplate,
         selectedTemplate,
@@ -28,13 +32,4 @@ export const TemplateProvider = ({ children }) => {
   );
 };
 
-// export const useTemplateContext = () => {
-//   const context = useContext(TemplateContext);
-//   if (!context) {
-//     throw new Error(
-//       "useTemplateContext must be used within a TemplateProvider"
-//     );
-//   }
-//   return context;
-// };
 export const useTemplateContext = () => useContext(TemplateContext);

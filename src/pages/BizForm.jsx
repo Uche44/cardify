@@ -1,13 +1,13 @@
 import { useState } from "react";
 import BizTemplate from "../components/BizTemplate";
-import { handleSubmit as submitForm } from "../lib/handleSubmit";
-import { useFetchData } from "../hooks/useFetchData";
+import { useTemplateContext } from "../contexts/TemplateSelectionContext";
 
 const BizForm = () => {
-  const { fetchSubmittedData } = useFetchData();
-
-  const [chooseTemplate, setChooseTemplate] = useState(true);
-  const [selectedTemplate, setSelectedTemplate] = useState(null);
+  const {
+    chooseTemplate,
+    // selectedTemplate,
+  } = useTemplateContext();
+  const [isLoading, setIsLoading] = useState(false);
 
   const [formData, setFormData] = useState({
     fullName: "",
@@ -21,11 +21,6 @@ const BizForm = () => {
     address: "",
     socialMedia: "",
   });
-
-  const handleTemplateSelect = (templateId) => {
-    setSelectedTemplate(templateId);
-    setChooseTemplate(false);
-  };
 
   const [errors, setErrors] = useState({});
 
@@ -60,18 +55,24 @@ const BizForm = () => {
   };
 
   const handleSubmit = async (e) => {
-    const url = "https://cardify-api-by76.onrender.com/business-info/";
-    await submitForm(e, url, formData, validateForm, fetchSubmittedData);
+    e.preventDefault();
+    setIsLoading(true);
+    if (!validateForm) return;
   };
 
   return (
     <>
+      {isLoading && (
+        <div className="bg-black w-full h-screen flex flex-col items-center justify-center">
+          <FaSpinner className="text-green-800 animate-spin text-[5rem]" />
+
+          <p className="text-white animate-pulse text-[1.2rem] mt-2">
+            Creating card...
+          </p>
+        </div>
+      )}
       {chooseTemplate ? (
-        <BizTemplate
-          formData={formData}
-          onTemplateSelect={handleTemplateSelect}
-          selectedTemplate={selectedTemplate}
-        />
+        <BizTemplate formData={formData} />
       ) : (
         <section className="w-full min-h-[100vh] flex flex-col items-center bg-black px-4 py-8">
           <h2 className="text-green-800 font-bold text-[1.5rem] mb-6">
@@ -265,7 +266,7 @@ const BizForm = () => {
               type="submit"
               className="w-full bg-green-800 text-white font-semibold py-2 rounded-lg hover:bg-green-900 transition"
             >
-              Submit
+              Create Card
             </button>
           </form>
         </section>

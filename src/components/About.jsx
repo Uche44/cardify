@@ -13,13 +13,15 @@ const About = () => {
         </h2>
         <FaUser className="text-[2rem] mb-6 text-green-800" />
       </div>
-      <p className="text-center">
-        At Cardify, we make professional ID cards and business cards easy, fast,
-        and stylish. Choose from a variety of templates, customize your details,
-        and generate high-quality cards in seconds. Whether for work, events, or
-        personal branding, Cardify helps you stand out effortlessly. Design,
-        preview, and download your perfect card today!
-      </p>
+      <div className="w-full border-2 h-fit px-4 py-6 rounded-lg border-green-800  shadow-md">
+        <p className="text-center md:text-[1.2rem]">
+          At Cardify, we make professional ID cards and business cards easy, fast,
+          and stylish. Choose from a variety of templates, customize your details,
+          and generate high-quality cards in seconds. Whether for work, events, or
+          personal branding, Cardify helps you stand out effortlessly. Design,
+          preview, and download your perfect card today!
+        </p>
+      </div>
     </section>
   );
 };
