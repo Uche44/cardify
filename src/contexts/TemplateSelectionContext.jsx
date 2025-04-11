@@ -7,8 +7,9 @@ const TemplateContext = createContext();
 export const TemplateProvider = ({ children }) => {
   const [chooseTemplate, setChooseTemplate] = useState(true);
   const [selectedTemplate, setSelectedTemplate] = useState(null);
-const [formData, setFormData] = useState({})
-
+  const [formData, setFormData] = useState({});
+  const [showRear, setShowRear] = useState(false);
+  // const [showRearTwo, setShowRearTwo] = useState(false);
 
   const handleTemplateSelect = (templateId) => {
     setSelectedTemplate(templateId);
@@ -25,6 +26,10 @@ const [formData, setFormData] = useState({})
         selectedTemplate,
         setSelectedTemplate,
         handleTemplateSelect,
+        // showRearOne,
+        // setShowRearOne,
+        showRear,
+        setShowRear,
       }}
     >
       {children}

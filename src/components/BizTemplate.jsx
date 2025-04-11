@@ -1,16 +1,17 @@
 import { useTemplateContext } from "../contexts/TemplateSelectionContext";
 
-import { useState } from "react";
+// import { useState } from "react";
 
-export const TempOne = ({ formData, showRear, setShowRear }) => {
+export const TempOne = ({ showRear, setShowRear }) => {
+  const { formData } = useTemplateContext();
 
- const profilePicUrl = formData.profilePicture
-   ? URL.createObjectURL(formData.profilePicture)
-   : null;
+  const profilePicUrl = formData.profilePicture
+    ? URL.createObjectURL(formData.profilePicture)
+    : null;
 
-const logo = formData.companyLogo
-  ? URL.createObjectURL(formData.companyLogo)
-  : null;
+  const logo = formData.companyLogo
+    ? URL.createObjectURL(formData.companyLogo)
+    : null;
 
   return (
     <div
@@ -83,11 +84,12 @@ const logo = formData.companyLogo
   );
 };
 
-export const TempTwo = ({ formData, showRear, setShowRear }) => {
+export const TempTwo = ({ showRear, setShowRear }) => {
+  const { formData } = useTemplateContext();
 
- const profilePicUrl = formData.profilePicture
-   ? URL.createObjectURL(formData.profilePicture)
-   : null;
+  const profilePicUrl = formData.profilePicture
+    ? URL.createObjectURL(formData.profilePicture)
+    : null;
 
   return (
     <div
@@ -161,10 +163,18 @@ export const TempTwo = ({ formData, showRear, setShowRear }) => {
 };
 
 const BizTemplate = () => {
-  const [showRearOne, setShowRearOne] = useState(false);
-  const [showRearTwo, setShowRearTwo] = useState(false);
+  // const [showRearOne, setShowRearOne] = useState(false);
+  // const [showRearTwo, setShowRearTwo] = useState(false);
 
-  const { selectedTemplate, handleTemplateSelect, formData } = useTemplateContext();
+  const {
+    selectedTemplate,
+    handleTemplateSelect,
+    formData,
+    showRearOne,
+    setShowRearOne,
+    showRearTwo,
+    setShowRearTwo,
+  } = useTemplateContext();
 
   return (
     <section className="w-full min-h-[100vh] py-8 px-2 bg-black flex flex-col items-center md:grid md:grid-cols-3 md:gap-4">
@@ -191,25 +201,7 @@ const BizTemplate = () => {
           use template
         </button>
       </div>
-      {/* <div
-        className={`w-full h-40 mb-4 cursor-pointer ${
-          selectedTemplate === "templateOne" ? "border-4 border-green-800" : ""
-        }`}
-      >
-        <TempOne
-          formData={formData}
-          showRear={showRearOne}
-          setShowRear={setShowRearOne}
-        />
 
-        {/* select button */}
-      {/* <button
-          onClick={() => handleTemplateSelect("templateOne")}
-          className="bg-green-800 px-4 py-2 mt-4 text-white rounded"
-        >
-          use template
-        </button>
-      </div>  */}
       {/* Template Two */}
       <div
         className={`w-full h-40 mb-4 cursor-pointer ${

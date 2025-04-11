@@ -5,7 +5,7 @@ import BizForm from "./pages/BizForm";
 import DriverForm from "./pages/DrivLicenseForm";
 import IdCard from "./components/IdCard";
 import BizCard from "./components/BizCard";
-
+import DriverCard from "./components/DriverCard";
 import { TemplateProvider } from "./contexts/TemplateSelectionContext";
 const router = createBrowserRouter([
   {
@@ -36,6 +36,11 @@ const router = createBrowserRouter([
   {
     path: "/biz-card",
     element: <BizCard />,
+  },
+
+  {
+    path: "/driver-card",
+    element: <DriverCard />,
   },
 ]);
 

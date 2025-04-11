@@ -1,4 +1,6 @@
-const placeholderImage = "https://via.placeholder.com/150";
+import { useEffect } from "react";
+
+
 import { useTemplateContext } from "../contexts/TemplateSelectionContext";
 
 export const TempOne = () => {
@@ -8,15 +10,26 @@ export const TempOne = () => {
     ? URL.createObjectURL(formData.profile_pic)
     : null;
 
+useEffect(() => {
+  return () => {
+    if (profilePicUrl) {
+      URL.revokeObjectURL(profilePicUrl);
+    }
+  };
+}, [profilePicUrl]);
+    
   return (
     <div className="w-full h-fit bg-white rounded-[1rem] flex flex-col items-center py-8 relative overflow-hidden z-3">
       {/* decor div */}
       <div className="w-full h-30 absolute top-6 bg-amber-900 z-4"></div>
       <div className="w-[72%] h-fit py-4 pl-4 rounded-l-[7rem] self-end bg-amber-800 shadow-xl mt-4 z-5 ">
-        <img
-          className="border-black w-28 h-28 rounded-full"
-          src={profilePicUrl || placeholderImage}
-        />
+        {profilePicUrl && (
+          <img
+            src={profilePicUrl}
+            alt="Profile"
+            className="w-32 h-32 rounded-full"
+          />
+        )}
       </div>
       <h3 className="text-[1.4rem] font-semibold mt-4">
         {formData.full_name || "John Dany Doe"}
@@ -59,15 +72,29 @@ export const TempTwo = () => {
   const profilePicUrl = formData.profile_pic
     ? URL.createObjectURL(formData.profile_pic)
     : null;
+
+ useEffect(() => {
+   // Cleanup function to revoke the URL
+   return () => {
+     if (profilePicUrl) {
+       URL.revokeObjectURL(profilePicUrl);
+     }
+   };
+ }, [profilePicUrl]);
+
+
   return (
     <div className="w-full h-fit bg-white mt-[19rem] rounded-[1rem] flex flex-col items-center py-8 relative overflow-hidden md:mt-0 z-3">
       {/* decor div */}
       <div className="w-full h-30 absolute top-6 bg-blue-900 z-4"></div>
       <div className="w-[72%] h-fit py-4 pl-4 rounded-l-[7rem] self-end bg-blue-800 shadow-xl mt-4 z-5 ">
-        <img
-          className="border-black w-28 h-28 rounded-full"
-          src={profilePicUrl || placeholderImage}
-        />
+        {profilePicUrl && (
+          <img
+            src={profilePicUrl}
+            alt="Profile"
+            className="w-32 h-32 rounded-full"
+          />
+        )}
       </div>
       <h3 className="text-[1.4rem] font-semibold mt-4">
         {formData.full_name || "John Dany Doe"}
@@ -113,7 +140,7 @@ const IdTemp = () => {
   } = useTemplateContext();
   return (
     <>
-      <div className="w-full min-h-[100vh] p-8 bg-black flex flex-col items-center md:grid md:grid-cols-2 md:gap-8 md:-mt-30">
+      <div className="w-full min-h-screen p-8 bg-black flex flex-col items-center md:grid md:grid-cols-2 md:gap-8 md:-mt-30">
         <h2 className="text-[1.5rem] font-bold text-green-800 mb-6 md:fixed md:top-4 md:left-[38%]">
           Choose a Template for your ID Card
         </h2>
