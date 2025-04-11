@@ -2,6 +2,8 @@ import { useState } from "react";
 import BizTemplate from "../components/BizTemplate";
 import { useTemplateContext } from "../contexts/TemplateSelectionContext";
 import { useNavigate } from "react-router-dom";
+import { FaSpinner } from "react-icons/fa";
+
 
 const BizForm = () => {
   const navigate = useNavigate();

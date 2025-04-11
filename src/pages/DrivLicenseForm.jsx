@@ -1,12 +1,14 @@
 import { useState } from "react";
-
+import { useTemplateContext } from "../contexts/TemplateSelectionContext";
 import { FaSpinner } from "react-icons/fa";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const DriverForm = () => {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
-  const [formData, setFormData] = useState({
+  const { setFormData } = useTemplateContext();
+
+  const [formData, localSetFormData] = useState({
     full_name: "",
     dateofbirth: "",
     placeofbirth: "",
@@ -26,7 +28,7 @@ const DriverForm = () => {
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
-    setFormData({
+    localSetFormData({
       ...formData,
       [name]: files ? files[0] : value,
     });
@@ -84,8 +86,9 @@ const DriverForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-
-  
+    if (!validateForm) return;
+    setFormData(formData);
+    navigate("/driver-card");
   };
 
   return (
