@@ -9,7 +9,7 @@ export const TempOne = ({ showRear, setShowRear }) => {
     ? URL.createObjectURL(formData.profilePicture)
     : null;
 
-  const logo = formData.companyLogo
+  const logoUrl = formData.companyLogo
     ? URL.createObjectURL(formData.companyLogo)
     : null;
 
@@ -23,7 +23,7 @@ export const TempOne = ({ showRear, setShowRear }) => {
           <div className="h-full -z-1 absolute bg-gray-800 w-25 ml-8"></div>
           <img
             className="border-black border-2 w-32 h-32 rounded-full ml-4 mr-8"
-            src={logo || "https://via.placeholder.com/150"}
+            src={logoUrl}
             alt="User Profile"
           />
 
@@ -72,14 +72,12 @@ export const TempOne = ({ showRear, setShowRear }) => {
           </div>
         </>
       )}
-
-      {/* Toggle Button */}
-      <button
+      {/* <button
         onClick={() => setShowRear(!showRear)}
         className="bg-green-800 px-4 py-2 mt-4 text-white rounded absolute bottom-[1rem] right-[1rem]"
       >
         {showRear ? "See Front" : "See Back"}
-      </button>
+      </button> */}
     </div>
   );
 };
@@ -89,6 +87,10 @@ export const TempTwo = ({ showRear, setShowRear }) => {
 
   const profilePicUrl = formData.profilePicture
     ? URL.createObjectURL(formData.profilePicture)
+    : null;
+
+  const logoUrl = formData.companyLogo
+    ? URL.createObjectURL(formData.companyLogo)
     : null;
 
   return (
@@ -101,7 +103,7 @@ export const TempTwo = ({ showRear, setShowRear }) => {
           <div className="h-full -z-1 absolute bg-gray-700 w-25 ml-8"></div>
           <img
             className="border-black border-2 w-32 h-32 rounded-full ml-4 mr-8"
-            src={formData.companyLogo || "https://via.placeholder.com/150"}
+            src={logoUrl}
             alt="User Profile"
           />
 
@@ -121,21 +123,21 @@ export const TempTwo = ({ showRear, setShowRear }) => {
             <img
               src={profilePicUrl}
               alt=""
-              className="border-2 w-20 h-20 rounded-full"
+              className=" w-30 h-30 rounded-full"
             />
 
-            <p className="text-[1.3rem] font-bold text-gray-800 -mt-2">
+            <p className="text-[1.3rem] font-bold text-black -mt-2">
               {formData.fullName || "John Dany Doe"}
             </p>
 
-            <p className="text-gray-800 -mt-4">
+            <p className="text-black -mt-4 text-xl">
               {formData.jobTitle || "Operations Manager"}
             </p>
           </div>
           {/* detail div */}
 
-          <div className="w-48 mt-4 flex flex-col">
-            <div className="w-48 flex gap-4">
+          <div className="w-48 mt-4 flex flex-col items-start">
+            <div className="w-48 flex gap-4 ">
               <p>Tel:</p>
               <p>{formData.phoneNumber || "12345678901"}</p>
             </div>
@@ -150,48 +152,26 @@ export const TempTwo = ({ showRear, setShowRear }) => {
           </div>
         </>
       )}
-
-      {/* Toggle Button */}
-      <button
-        onClick={() => setShowRear(!showRear)}
-        className="bg-green-800 px-4 py-2 mt-4 text-white rounded absolute bottom-[1rem] right-[1rem]"
-      >
-        {showRear ? "See Front" : "See Back"}
-      </button>
     </div>
   );
 };
 
 const BizTemplate = () => {
-  // const [showRearOne, setShowRearOne] = useState(false);
-  // const [showRearTwo, setShowRearTwo] = useState(false);
-
-  const {
-    selectedTemplate,
-    handleTemplateSelect,
-    formData,
-    showRearOne,
-    setShowRearOne,
-    showRearTwo,
-    setShowRearTwo,
-  } = useTemplateContext();
+  const { selectedTemplate, handleTemplateSelect, formData } =
+    useTemplateContext();
 
   return (
     <section className="w-full min-h-[100vh] py-8 px-2 bg-black flex flex-col items-center md:grid md:grid-cols-3 md:gap-4">
-      <h2 className="text-[1.5rem] font-bold text-green-800 mb-6 fixed top-[1rem] left-[50%] translate-x-[-50%] z-10">
+      <h2 className="text-[1.5rem] font-bold text-green-800 text-center mb-6 fixed top-[1rem] md:left-[50%] md:translate-x-[-50%]">
         Choose a Template for your Business Card
       </h2>
       {/* Template One */}
       <div
-        className={`w-full h-40 mb-4 cursor-pointer ${
+        className={`w-full h-40 mt-20 mb-4 cursor-pointer ${
           selectedTemplate === "templateOne" ? "border-4 border-green-800" : ""
         }`}
       >
-        <TempOne
-          formData={formData}
-          showRear={showRearOne}
-          setShowRear={setShowRearOne}
-        />
+        <TempOne formData={formData} />
 
         {/* select button */}
         <button
@@ -208,11 +188,7 @@ const BizTemplate = () => {
           selectedTemplate === "templateTwo" ? "border-4 border-green-800" : ""
         }`}
       >
-        <TempTwo
-          formData={formData}
-          showRear={showRearTwo}
-          setShowRear={setShowRearTwo}
-        />
+        <TempTwo formData={formData} />
 
         {/* select button */}
         <button

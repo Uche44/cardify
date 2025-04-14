@@ -8,8 +8,7 @@ export const TemplateProvider = ({ children }) => {
   const [chooseTemplate, setChooseTemplate] = useState(true);
   const [selectedTemplate, setSelectedTemplate] = useState(null);
   const [formData, setFormData] = useState({});
-  const [showRear, setShowRear] = useState(false);
-  // const [showRearTwo, setShowRearTwo] = useState(false);
+
 
   const handleTemplateSelect = (templateId) => {
     setSelectedTemplate(templateId);
@@ -26,10 +25,7 @@ export const TemplateProvider = ({ children }) => {
         selectedTemplate,
         setSelectedTemplate,
         handleTemplateSelect,
-        // showRearOne,
-        // setShowRearOne,
-        showRear,
-        setShowRear,
+        
       }}
     >
       {children}

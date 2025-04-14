@@ -1,10 +1,10 @@
 import { useTemplateContext } from "../contexts/TemplateSelectionContext";
 import { useEffect, useRef } from "react";
-
-import html2canvas from "html2canvas";
+import { toPng } from "html-to-image";
 
 const DriverCard = () => {
   const { formData } = useTemplateContext();
+  const cardRef = useRef(null);
 
   const profilePicUrl = formData.profile_pic
     ? URL.createObjectURL(formData.profile_pic)
@@ -18,16 +18,18 @@ const DriverCard = () => {
     };
   }, [profilePicUrl]);
 
-  const cardRef = useRef(null);
-
   const handleDownload = async () => {
-    const canvas = await html2canvas(cardRef.current, { scale: 2 });
-    const dataUrl = canvas.toDataURL("image/png");
-
-    const link = document.createElement("a");
-    link.href = dataUrl;
-    link.download = "drivers_license.png";
-    link.click();
+    if (cardRef.current) {
+      try {
+        const dataUrl = await toPng(cardRef.current, { cacheBust: true });
+        const link = document.createElement("a");
+        link.download = "driver_license.png";
+        link.href = dataUrl;
+        link.click();
+      } catch (err) {
+        console.error("Image generation failed:", err);
+      }
+    }
   };
 
   return (
