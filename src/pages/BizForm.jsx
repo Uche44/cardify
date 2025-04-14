@@ -4,7 +4,6 @@ import { useTemplateContext } from "../contexts/TemplateSelectionContext";
 import { useNavigate } from "react-router-dom";
 import { FaSpinner } from "react-icons/fa";
 
-
 const BizForm = () => {
   const navigate = useNavigate();
   const { chooseTemplate, setFormData } = useTemplateContext();
@@ -61,13 +60,12 @@ const BizForm = () => {
     if (!validateForm) return;
     setFormData(formData);
     navigate("/biz-card");
-    
   };
 
   return (
     <>
       {isLoading && (
-        <div className="bg-black w-full h-screen flex flex-col items-center justify-center">
+        <div className="bg-black w-full fixed h-screen flex flex-col items-center justify-center">
           <FaSpinner className="text-green-800 animate-spin text-[5rem]" />
 
           <p className="text-white animate-pulse text-[1.2rem] mt-2">
