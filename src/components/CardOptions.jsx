@@ -10,10 +10,7 @@ const CardOptions = () => {
       id="create-card"
       className="scroll-element card-options w-full h-fit mt-6 px-4 pb-2 pt-20 md:flex md:gap-4 md:px-36 md:mt-14 relative"
     >
-      {/* <h2 className="text-[1.6rem] font-bold text-green-800 mb-2 mt-6 md:mb-0 md:text-4xl">
-          Click to get your Card!
-        </h2> */}
-      <h2 className="text-[1.5rem] font-bold text-green-800 mb-20 absolute top-[1rem] left-[50%] translate-x-[-50%] z-10">
+      <h2 className="text-[1.6rem] font-bold text-green-800 mb-20 absolute top-[1rem] left-[5.5rem] md:left-[50%] md:translate-x-[-50%] z-10">
         Click to get your Card!
       </h2>
       <div className="py-4 px-6 border-[1px] border-gray-200 rounded-[1rem] md:px-8 md:p-10 md:hover:border-green-800">
