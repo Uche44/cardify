@@ -73,14 +73,13 @@ const IdForm = () => {
     if (!validateForm) return;
     setFormData(formData);
     navigate("/id-card");
-  
   };
 
   return (
     <>
       {isLoading && (
         <div className="bg-black w-full h-screen flex flex-col items-center justify-center">
-          <FaSpinner className="text-green-800 animate-spin text-[5rem]" />
+          <FaSpinner className="text-green-800 animate-spin text-[5rem] fixed" />
 
           <p className="text-white animate-pulse text-[1.2rem] mt-2">
             Creating card...

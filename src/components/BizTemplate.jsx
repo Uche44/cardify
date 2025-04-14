@@ -123,7 +123,7 @@ export const TempTwo = ({ showRear, setShowRear }) => {
             <img
               src={profilePicUrl}
               alt=""
-              className=" w-30 h-30 rounded-full"
+              className=" w-25 h-25 rounded-full"
             />
 
             <p className="text-[1.3rem] font-bold text-black -mt-2">
